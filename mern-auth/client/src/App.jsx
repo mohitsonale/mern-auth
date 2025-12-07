@@ -10,10 +10,10 @@ function App(){
   return(
     <div>
 
-      {/* <Link to='/'>Home</Link>
-      <Link to='/'>Login</Link>
       <Link to='/'>Home</Link>
-      <Link to='/'>Home</Link> */}
+      <Link to='/login'>Login</Link>
+      <Link to='/email-verify'>Email-Verify</Link>
+      <Link to='/reset-password'>Reset-Password</Link>
 
       <Routes>
         <Route path='/' element={<Home />} />
