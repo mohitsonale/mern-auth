@@ -22,7 +22,7 @@ let userSchema=new mongoose.Schema({
             type:Number,
             default:0
     },
-    isVerified:{    
+    isAccountVerified:{    
         type:Boolean,
         default:false
     },

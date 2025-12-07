@@ -1,18 +1,22 @@
+require('dotenv').config()
 let express=require('express')
 let mongoose=require('mongoose')
 let cros=require('cors')
-let cookieParser = require('cookie-parser')
-require('dotenv').config()
+let cookieParser = require('cookie-parser') 
+const authrouter = require('./routes/authroutes')
+const { userRouter } = require('./routes/userroutes')
+
 
 let app=express()
 
 app.use(express.json())
-app.use(cros())
+app.use(cros({credentials:true}))
 app.use(cookieParser())
 
-app.get('/',(req,res)=>{
-    res.send('Hello World! dsdadyt mohit sonale')
-})
+
+
+app.use('/api/auth',authrouter)
+app.use('/api/user',userRouter) 
 
 mongoose.connect(process.env.MONGOURL).then(()=>{
     console.log('Connected to MongoDB')
@@ -22,3 +26,5 @@ mongoose.connect(process.env.MONGOURL).then(()=>{
 }).catch((err)=>{
     console.log(err)
 })
+
+console.log(process.env.SMTP_USER, process.env.SMTP_PASS);
