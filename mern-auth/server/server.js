@@ -9,11 +9,15 @@ const { userRouter } = require('./routes/userroutes')
 
 let app=express()
 
+const allowedOrigin=["http://localhost:5173"]
+
 app.use(express.json())
-app.use(cros({credentials:true}))
+app.use(cros({origin:allowedOrigin,credentials:true}))
 app.use(cookieParser())
 
-
+app.get('/',(req,res)=>{
+    res.send("API WORKING")
+})
 
 app.use('/api/auth',authrouter)
 app.use('/api/user',userRouter) 

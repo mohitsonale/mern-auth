@@ -3,7 +3,7 @@ let jwt=require('jsonwebtoken')
 
 let userauthmiddleware=async(req,res,next)=>{
 
-    const{token}=req.cookies
+    const token=req.cookies.token;
 
     if(!token){
         return res.status(401).json({success:false,message:"Unauthorized access"})
@@ -14,7 +14,7 @@ let userauthmiddleware=async(req,res,next)=>{
         const tokendecoded=jwt.verify(token,process.env.JWT_SECRET)
 
         if(tokendecoded.id){
-            req.body.userId=tokendecoded.id
+            req.userId=tokendecoded.id
         
         }else{
             return res.json({success:false,message:"Unauthorized access"})

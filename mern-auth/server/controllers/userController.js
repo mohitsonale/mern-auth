@@ -5,7 +5,7 @@ let getUserData=async(req,res)=>{
 
     try {
 
-        const{userId}=req.body
+        const userId=req.userId;
 
         const user=await Usermodel.findById(userId)
 

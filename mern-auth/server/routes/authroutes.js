@@ -8,7 +8,7 @@ authrouter.post('/login',login)
 authrouter.post('/logout',logout)
 authrouter.post('/send-verify-otp',userauthmiddleware,sendVerifyOtp)
 authrouter.post('/verify-account',userauthmiddleware,verifyEmail)
-authrouter.post('/is-authenticated',userauthmiddleware,isAuthenticated)
+authrouter.get('/is-authenticated',userauthmiddleware,isAuthenticated)
 authrouter.post('/send-reset-otp',sendresetOtp)
 authrouter.post('/reset-password',resetPassword)
 

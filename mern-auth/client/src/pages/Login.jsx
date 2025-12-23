@@ -1,14 +1,67 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router";
+import { Appcontext } from "../Context/AppContext";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 function Login(){
+
+    const{backendurl,SetisLoggedin,getuserdata}=useContext(Appcontext)
 
     const[state,Setstate]=useState('Sign Up')
     const[name,Setname]=useState('')
     const[email,Setemail]=useState('')
     const[password,Setpassword]=useState('')
     const navigate=useNavigate()
+    
+    const onSubmithandler=async(e)=>{
+
+        try {
+
+            e.preventDefault()
+
+            axios.defaults.withCredentials=true  // send the cookis with request 
+
+            if(state === 'Sign Up'){
+
+              const {data} =  await axios.post(backendurl + '/api/auth/register',{name,email,password})
+
+              if(data.success){
+                SetisLoggedin(true)
+                getuserdata()
+                navigate('/')
+
+              }else{
+                toast.error(data.message)
+              }
+
+            }else{
+
+            const {data} =  await axios.post(backendurl + '/api/auth/login',{email,password})
+
+              if(data.success){
+                SetisLoggedin(true)
+                getuserdata()
+                navigate('/')
+
+              }else{
+                toast.error(data.message)
+              }
+
+
+            }
+            
+        } 
+        catch (error) {
+
+            toast.error(error.message)
+            
+        }
+
+    }
 
 
     return(
@@ -20,7 +73,7 @@ function Login(){
                 <h2 className="text-3xl font-semibold text-white text-center mb-3">{state === 'Sign Up' ? "Create Account":"Login"}</h2>
                 <p className="text-center text-sm mb-6">{state === 'Sign Up' ? "Create your account" : "Login to your account!"}</p>
 
-                <form >
+                <form onSubmit={onSubmithandler} >
 
                     {state === 'Sign Up' && (<div onChange={(e)=>Setname(e.target.value)} className="mb-4 flex item-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] ">
                         <img src={assets.person_icon} alt="" />
@@ -46,7 +99,7 @@ function Login(){
                 </form>
 
                 {state === 'Sign Up' ? ( <p className="text-gray-400 text-center text-xs mt-4">Already have an account? {' '}
-                    <span onClick={()=>Setstate('Login  ')} className="text-blue-400 cursor-pointer underline" >Login here</span>
+                    <span onClick={()=>Setstate('Login')} className="text-blue-400 cursor-pointer underline" >Login here</span>
                 </p>) 
                 : (
                     <p onClick={()=>Setstate('Sign Up')} className="text-gray-400 text-center text-xs mt-4">Don't have an account? {' '}

@@ -118,7 +118,9 @@ let sendVerifyOtp=async(req,res)=>{
 
     try{
 
-        const {userId}=req.body
+        const {userId}=req.body 
+        
+        
 
         const user=await Usermodel.findById(userId)
 
@@ -148,14 +150,18 @@ let sendVerifyOtp=async(req,res)=>{
 
     }
     catch(error){
-        return res.send({success:false,message:error.message})
+        console.error("sendVerifyOtp error:", error)
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 
 }
 
 let verifyEmail=async(req,res)=>{
 
-    const {userId,otp}=req.body
+    const {userId,otp}=req.body 
 
     if(!userId|| ! otp){
         return res.json({success:false,message:"Missing Details"})
