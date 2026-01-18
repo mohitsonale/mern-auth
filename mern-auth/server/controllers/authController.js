@@ -3,7 +3,7 @@ let jwt=require('jsonwebtoken')
 const Usermodel = require("../models/User.model")
 const {transporter}=require('../config/nodemailer')
 
-
+    
 let register=async(req,res)=>{
 
     let{name,email,password}=req.body
@@ -42,7 +42,7 @@ let register=async(req,res)=>{
         const mailOptions={
             from:process.env.SMTP_USER,
             to:email,
-            subject:"Welcome to Our Platform",
+            subject:"Welcome to Our Platform",  
             text:`welcome ${name} to our platform! We're glad to have you on board. 
             Your account has been successfully created with the email id: ${email}.`
         }

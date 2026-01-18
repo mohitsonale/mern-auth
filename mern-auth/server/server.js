@@ -1,7 +1,7 @@
 require('dotenv').config()
 let express=require('express')
 let mongoose=require('mongoose')
-let cros=require('cors')
+const cors=require('cors')
 let cookieParser = require('cookie-parser') 
 const authrouter = require('./routes/authroutes')
 const { userRouter } = require('./routes/userroutes')
@@ -9,10 +9,13 @@ const { userRouter } = require('./routes/userroutes')
 
 let app=express()
 
-const allowedOrigin=["http://localhost:5173"]
+// const allowedOrigin="http://localhost:5173"
 
-app.use(express.json())
-app.use(cros({origin:allowedOrigin,credentials:true}))
+app.use(express.json()) 
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
 app.use(cookieParser())
 
 app.get('/',(req,res)=>{

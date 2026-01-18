@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets"
 import { useContext } from "react";
 import { Appcontext } from "../Context/AppContext";
@@ -26,7 +26,7 @@ function Navbar() {
             else{
                 toast.error(data.message)
             }
-            
+             
         } catch (error) {
 
             toast.error(error.message)
